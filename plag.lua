@@ -1,3 +1,16 @@
+if not LPH_OBFUSCATED then
+	local dummy = function(...) return ... end
+	LPH_NO_VIRTUALIZE = LPH_NO_VIRTUALIZE or dummy
+	LPH_NO_UPVALUES = LPH_NO_UPVALUES or dummy
+	LPH_OBFUSCATED = LPH_OBFUSCATED or false
+	LPH_JIT_MAX = LPH_JIT_MAX or dummy
+	LPH_ENCFUNC = LPH_ENCFUNC or dummy
+	LPH_ENCSTR = LPH_ENCSTR or dummy
+	LPH_ENCNUM = LPH_ENCNUM or dummy
+	LPH_CRASH = LPH_CRASH or dummy
+	LPH_JIT = LPH_JIT or dummy
+end
+
 local req = request or http_request or syn.request
 
 function missing(t, f, fallback)
@@ -39,9 +52,7 @@ hmac = missing("function", crypt.hmac, newcclosure(function(key, data, algo)
 	return hmac_sha256(key, data) --- I don't need full crypt.hmac hashing libraries, I only use sha256 and this is a shitsploit patch anywho so who cares
 end))
 local sm
-if isfile and isfile("library/savemanager.lua") then
-	sm = loadstring(readfile("library/savemanager.lua"))()
-elseif isfile and isfile("savemanager.lua") then
+if isfile and isfile("savemanager.lua") then
 	sm = loadstring(readfile("savemanager.lua"))()
 else
 	sm = loadstring(readfile("savemanager.lua"))()
