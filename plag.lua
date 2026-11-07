@@ -51,13 +51,7 @@ end
 hmac = missing("function", crypt.hmac, newcclosure(function(key, data, algo)
 	return hmac_sha256(key, data) --- I don't need full crypt.hmac hashing libraries, I only use sha256 and this is a shitsploit patch anywho so who cares
 end))
-local sm
-if isfile and isfile("savemanager.lua") then
-	sm = loadstring(readfile("savemanager.lua"))()
-else
-	sm = loadstring(readfile("savemanager.lua"))()
-end
-local GameName = game.PlaceId
+local sm = loadstring(game:HttpGet("https://raw.githubusercontent.com/kyotointernals/internal/refs/heads/main/savemanager.lua"))()
 
 sm:SetFolder("kyoto/games/" .. tostring(GameName))
 local UIS = game:GetService("UserInputService")
